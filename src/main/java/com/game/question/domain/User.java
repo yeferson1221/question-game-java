@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 
 @Entity
 @Table(name = "user")
@@ -20,4 +22,6 @@ public class User {
     private String email;
     @Column(name = "password", length = 100, nullable = false)
     private String password;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Game> games;
 }

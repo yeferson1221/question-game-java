@@ -25,4 +25,15 @@ public class UserController {
     public List<User> getUser(){
         return userService.getUser();
     }
+
+    @PutMapping("/update/{id}")
+    public User updateUser(@PathVariable int id, @RequestBody User user){
+        user.setId(id);
+        return userService.updateUserById(id, user);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public void deleteUser(int id){
+        userService.deleteUser(id);
+    }
 }
