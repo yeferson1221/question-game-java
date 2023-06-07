@@ -1,10 +1,9 @@
 package com.game.question.domain;
 
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.query.criteria.internal.expression.function.AggregationFunction;
 
-import javax.persistence.*;
 
 @Entity
 @Table(name = "user")
@@ -19,6 +18,6 @@ public class User {
     private String name;
     @Column(name = "email", length = 225, nullable = false, unique = true)
     private String email;
-    @Column(name = "name", length = 100, nullable = false)
+    @Column(name = "password", length = 100, nullable = false)
     private String password;
 }

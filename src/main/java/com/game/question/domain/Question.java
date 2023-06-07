@@ -1,9 +1,12 @@
 package com.game.question.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,6 +14,7 @@ import java.util.List;
 @Table(name = "question")
 @Data
 @NoArgsConstructor
+//@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Question {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,11 +23,17 @@ public class Question {
     private String tex;
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "question_id")
+    //@JsonBackReference
     private List<Answer> answers = new ArrayList<>();
 
+
+
+    /*
     public void addAnswer(Answer answer) {
         answers.add(answer);
     }
 
+
+     */
 }
 

@@ -1,9 +1,9 @@
 package com.game.question.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import javax.persistence.*;
 
 @Entity
 @Table(name = "answer")
@@ -20,8 +20,17 @@ public class Answer {
     @Column(name = "is_correct", nullable = false)
     private boolean correct;
 
+    @ManyToOne
+    @JoinColumn(name = "question_id")
+    @JsonBackReference
+    private Question question;
+
+    /*
     public Answer(String text, boolean correct) {
         this.text = text;
         this.correct = correct;
     }
+
+
+     */
 }

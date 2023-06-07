@@ -8,28 +8,44 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class QuestionService {
-    private final QuestionRepository questionRepository;
 
     @Autowired
-    public QuestionService(QuestionRepository questionRepository) {
-        this.questionRepository = questionRepository;
+    private QuestionRepository questionRepository;
+
+    public Question createQuestion(Question question) {
+        return questionRepository.save(question);
     }
 
-    public List<Question> getRandomQuestions(int count) {
-        List<Question> allQuestions = questionRepository.findAll();
+
+    public Question updateQuestion(Question question) {
+        return questionRepository.save(question);
+    }
+
+    public void deleteQuestion(int questionId) {
+        questionRepository.deleteById(questionId);
+    }
+
+
+//_----------------------------------------------------------------
+
+    public List<Question> getRandomQuestions(int count){
+        List<Question> allQuestions = (List<Question>) questionRepository.findAll();
         int totalQuestions = allQuestions.size();
 
+        /*
         if (count >= totalQuestions) {
-            return allQuestions; // Return all questions if count is greater or equal to the total
+            return allQuestions; // Devuelve todas las preguntas si el recuento es mayor o igual al total
         }
+         */
 
-        // Shuffle the questions
+        // Mezcla las preguntas
         Collections.shuffle(allQuestions);
 
-        // Return the first 'count' questions
+        // Devuelve las primeras 'count' preguntas
         return allQuestions.subList(0, count);
     }
 
@@ -48,4 +64,6 @@ public class QuestionService {
 
         return false; // Answer not found
     }
+
+
 }

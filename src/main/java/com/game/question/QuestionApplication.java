@@ -1,10 +1,14 @@
 package com.game.question;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+
 @SpringBootApplication
-public class QuestionApplication {
+public class QuestionApplication  {
 
 	/*
 		echo "# question-game-java" >> README.md
@@ -16,8 +20,11 @@ public class QuestionApplication {
 		git push -u origin main
 	 */
 
+
 	public static void main(String[] args) {
 		SpringApplication.run(QuestionApplication.class, args);
 	}
+
+
 
 }
