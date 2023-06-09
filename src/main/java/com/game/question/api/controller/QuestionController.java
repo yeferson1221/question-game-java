@@ -1,8 +1,8 @@
 package com.game.question.api.controller;
 import com.game.question.domain.Question;
+import com.game.question.service.GameService;
 import com.game.question.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,6 +14,9 @@ public class QuestionController {
 
     @Autowired
     private QuestionService questionService;
+
+    @Autowired
+    private GameService gameService;
 
     //CREAR PREGUNTAS
     @PostMapping("/create")
@@ -28,21 +31,26 @@ public class QuestionController {
         return questionService.updateQuestion(question);
     }
 
-    //ELIMINAR PREGUNTAS
-    @DeleteMapping("delete/{questionId}")
-    public void deleteQuestion(@PathVariable int questionId) {
-        questionService.deleteQuestion(questionId);
-    }
-
     //LISTAR PREGUNTAS ALEATORIAS
     @GetMapping("/random/{count}")
     public List<Question> getRandomQuestions(@PathVariable int count) {
         return questionService.getRandomQuestions(count);
     }
 
-    @GetMapping("/{questionId}/answer/{answerId}")
-    public boolean checkAnswer(@PathVariable int questionId, @PathVariable int answerId) {
-        return questionService.checkAnswer(questionId, answerId);
+    //OPTENER RESPUIESTA DE LA PREGUNTA
+    @GetMapping("/check-answer/{questionId}/{answerId}/{gameId}")
+    public boolean checkAnswer(@PathVariable int questionId, @PathVariable int answerId, @PathVariable int gameId) {
+        boolean correctAnswer = questionService.checkAnswer(questionId, answerId);
+
+        gameService.updateGamePoints(gameId, correctAnswer);
+
+        return correctAnswer;
+    }
+
+    //ELIMINAR PREGUNTAS
+    @DeleteMapping("delete/{questionId}")
+    public void deleteQuestion(@PathVariable int questionId) {
+        questionService.deleteQuestion(questionId);
     }
 
 

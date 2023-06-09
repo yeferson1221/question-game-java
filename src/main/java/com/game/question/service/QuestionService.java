@@ -32,15 +32,15 @@ public class QuestionService {
 
 //_----------------------------------------------------------------
 
+    //OPTNER  NUMERO DE PREGUNTAS ALEATORIAS
     public List<Question> getRandomQuestions(int count){
         List<Question> allQuestions = (List<Question>) questionRepository.findAll();
         int totalQuestions = allQuestions.size();
 
-        /*
-        if (count >= totalQuestions) {
-            return allQuestions; // Devuelve todas las preguntas si el recuento es mayor o igual al total
+
+        if (count > totalQuestions) {
+            return allQuestions; // Devuelve todas las preguntas si el recuento es mayor al total
         }
-         */
 
         // Mezcla las preguntas
         Collections.shuffle(allQuestions);
@@ -49,6 +49,7 @@ public class QuestionService {
         return allQuestions.subList(0, count);
     }
 
+    //OPTENER PREGUNTA CORRECTA Y  SI Es CORRECTA SUMA 100 AL JUEGO
     public boolean checkAnswer(int questionId, int answerId) {
         Question question = questionRepository.findById(questionId).orElse(null);
 

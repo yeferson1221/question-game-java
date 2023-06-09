@@ -1,5 +1,6 @@
 package com.game.question.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,7 +17,11 @@ public class Game {
     @Column(name = "name", length = 15, nullable = false )
     private String name;
 
+    @Column(name = "points", nullable = false)
+    private int points;
+
     @ManyToOne
     @JoinColumn(name = "user_id")
+    //@JsonBackReference
     private User user;
 }

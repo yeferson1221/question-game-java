@@ -1,9 +1,11 @@
 package com.game.question.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -22,6 +24,8 @@ public class User {
     private String email;
     @Column(name = "password", length = 100, nullable = false)
     private String password;
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Game> games;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonBackReference
+    private List<Game> games = new ArrayList<>();
+
 }
