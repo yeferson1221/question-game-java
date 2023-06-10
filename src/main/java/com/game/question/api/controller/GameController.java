@@ -2,6 +2,7 @@ package com.game.question.api.controller;
 
 import com.game.question.domain.Game;
 import com.game.question.service.GameService;
+import com.game.question.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +14,9 @@ import java.util.List;
 public class GameController {
     @Autowired
     private GameService gameService;
+
+    @Autowired
+    private UserService userService;
 
     //CREAR GAME
     @PostMapping("/create/{id}")
@@ -34,7 +38,8 @@ public class GameController {
 
     //LISTAR JUEGO MAYOR DE TODOS
     @GetMapping("/highest-scoring-game")
-    public List<Game> getHighestScoringGame(){
+    public List<Game> getHighestScoringGame(@RequestHeader(value="Authorization") String token){
+        if(!userService.validateToken(token)){return null;}
         return gameService.getGameWithHighestScore();
     }
 

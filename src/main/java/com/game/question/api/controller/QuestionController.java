@@ -2,6 +2,7 @@ package com.game.question.api.controller;
 import com.game.question.domain.Question;
 import com.game.question.service.GameService;
 import com.game.question.service.QuestionService;
+import com.game.question.utils.AuthInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,9 +19,12 @@ public class QuestionController {
     @Autowired
     private GameService gameService;
 
+    @Autowired
+    private AuthInterceptor authInterceptor;
+
     //CREAR PREGUNTAS
     @PostMapping("/create")
-    public Question createQuestion(@RequestBody Question question) {
+    public Question createQuestion( @RequestBody Question question) {
         return questionService.createQuestion(question);
     }
 
@@ -39,7 +43,8 @@ public class QuestionController {
 
     //OPTENER RESPUIESTA DE LA PREGUNTA
     @GetMapping("/check-answer/{questionId}/{answerId}/{gameId}")
-    public boolean checkAnswer(@PathVariable int questionId, @PathVariable int answerId, @PathVariable int gameId) {
+    public boolean checkAnswer(@PathVariable int questionId, @PathVariable int answerId,
+                               @PathVariable int gameId) {
         boolean correctAnswer = questionService.checkAnswer(questionId, answerId);
 
         gameService.updateGamePoints(gameId, correctAnswer);

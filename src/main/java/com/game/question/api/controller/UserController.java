@@ -16,24 +16,19 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @PostMapping("/create")
-    public User createUser(@RequestBody User user) {
-        return userService.CreateUser(user);
-    }
-
     @GetMapping
-    public List<User> getUser(){
+    public List<User> getUser(@RequestHeader(value="Authorization") String token){
         return userService.getUser();
     }
 
     @PutMapping("/update/{id}")
-    public User updateUser(@PathVariable int id, @RequestBody User user){
+    public User updateUser(@RequestHeader(value="Authorization") String token, @PathVariable int id, @RequestBody User user){
         user.setId(id);
         return userService.updateUserById(id, user);
     }
 
     @DeleteMapping("/delete/{id}")
-    public void deleteUser(int id){
+    public void deleteUser(@RequestHeader(value="Authorization") String token, int id){
         userService.deleteUser(id);
     }
 }

@@ -2,6 +2,7 @@ package com.game.question.service;
 
 import com.game.question.domain.User;
 import com.game.question.repository.UserRepository;
+import com.game.question.utils.JWTUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +13,9 @@ import java.util.NoSuchElementException;
 public class UserService {
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private JWTUtil jwtUtil;
 
     //CREAR USUARIO
     public User CreateUser(User user){
@@ -52,4 +56,13 @@ public class UserService {
         return null;
     }
 
+    //VALIDAR TOKEN
+    public boolean validateToken(String token){
+        try {
+            String userId = jwtUtil.getKey(token);
+            return userId != null;
+        } catch (Exception e){
+            return false;
+        }
+    }
 }

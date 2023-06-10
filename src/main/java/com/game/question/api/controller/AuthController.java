@@ -31,4 +31,9 @@ public class AuthController {
         }
     }
 
+    @PostMapping("/create")
+    public User createUser(@RequestBody User user) {
+        return userService.CreateUser(user);
+    }
+
 }
