@@ -26,6 +26,18 @@ public class GameController {
         return gameService.getGame();
     }
 
+    //LISTAR JUEGOS DE UN JUGADOR
+    @GetMapping("/player/{userId}/games")
+    public List<Game> getAllGamesbyUserId(@PathVariable int userId){
+        return gameService.getAllgamesByUserId(userId);
+    }
+
+    //LISTAR JUEGO MAYOR DE TODOS
+    @GetMapping("/highest-scoring-game")
+    public List<Game> getHighestScoringGame(){
+        return gameService.getGameWithHighestScore();
+    }
+
     //ELIMINAR JUEGO
     @DeleteMapping("delete")
     public void deleteGame(@PathVariable int id){
